@@ -5,14 +5,17 @@ const pizzasSlicer = createSlice({
   initialState: { pizza: [] },
   reducers: {
     addPizzas: (state, { payload }) => {
-      // payload !== null ? state.pizza.push(payload) : (payload = []);
-
-
       if (payload !== null) {
-        state.pizza.push(payload);
+        if (
+          state.pizza.some(
+            (el) => el.id === payload.id && el.size === payload.size
+          )
+        ) {
+          return;
+        } else {
+          state.pizza.push(payload);
+        }
       }
-
-
     },
   },
 });
